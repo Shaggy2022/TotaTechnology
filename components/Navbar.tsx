@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CartIcon from "./CartIcon";
 
 export default function Navbar() {
   return (
@@ -38,6 +39,10 @@ export default function Navbar() {
           <a href="#">Ofertas</a>
 
           <a href="#">Contacto</a>
+
+          <div className="flex items-center gap-4">
+            <CartIcon />
+          </div>
 
         </nav>
 
