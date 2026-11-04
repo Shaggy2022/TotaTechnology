@@ -1,13 +1,28 @@
-export default function Home() {
-  return (
-    <main className="p-10">
-      <h1 className="text-5xl font-bold">
-        Tota Technology
-      </h1>
+import Image from "next/image";
+import Navbar from "@/components/Navbar";
+import ProductosDestacados from "@/components/ProductosDestacados";
+import { prisma } from "@/lib/prisma";
+import { obtenerProductos } from "@/lib/productos";
 
-      <p className="mt-4">
-        Tu tienda de tecnología online
-      </p>
+export default async function Home() {
+  const productos = await obtenerProductos();
+
+  return (
+    <main className="bg-black min-h-screen">
+      <Navbar />
+
+      <section>
+        <Image
+          src="/images/hero-banner.jpg"
+          alt="Banner Principal"
+          width={1600}
+          height={600}
+          className="w-full"
+          priority
+        />
+      </section>
+
+      <ProductosDestacados productos={productos} />
     </main>
   );
 }
