@@ -5,6 +5,7 @@ type Producto = {
   nombre: string;
   descripcion: string;
   precio: number;
+  imagen: string;
 };
 
 interface Props {
@@ -24,6 +25,7 @@ export default function ProductosDestacados({
         {productos.map((producto) => (
           <ProductCard
             key={producto.id}
+            id={producto.id}
             nombre={producto.nombre}
             descripcion={producto.descripcion}
             precio={producto.precio}
