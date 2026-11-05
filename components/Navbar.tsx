@@ -30,15 +30,53 @@ export default function Navbar() {
 
         <nav className="flex gap-8 text-white">
 
-          <a href="#">Inicio</a>
+          <a href="#inicio" className="text-white font-medium transition-all duration-300
+          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
+          active:scale-95">
+            Inicio
+          </a>
 
-          <a href="#">Productos</a>
+          <a href="#productos" className="text-white font-medium transition-all duration-300
+          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
+          active:scale-95"
+          >
+            Productos
+          </a>
 
-          <a href="#">Categorías</a>
+          <div className="relative group">
 
-          <a href="#">Ofertas</a>
+            <button className="text-white hover:text-blue-400 transition-all duration-300"
+            >
+              Categorías ▼
+            </button>
 
-          <a href="#">Contacto</a>
+            <div
+              className="absolute hidden group-hover:block bg-[#091226] border border-blue-900
+              rounded-lg mt-2 min-w-[220px] shadow-xl z-50"
+            >
+
+              <a
+                href="#productos" className="block px-4 py-3 text-white hover:bg-blue-600"
+              >
+                🎧 Audífonos
+              </a>
+  </div>
+
+</div>
+
+          <a href="#ofertas" className="text-white font-medium transition-all duration-300
+          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
+          active:scale-95"
+          >
+            Ofertas
+          </a>
+
+          <a href="#contacto" className="text-white font-medium transition-all duration-300
+          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
+          active:scale-95"
+          >
+            Contacto
+          </a>
 
           <div className="flex items-center gap-4">
             <CartIcon />
