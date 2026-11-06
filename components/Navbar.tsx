@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import CartIcon from "./CartIcon";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [mostrarCategorias, setMostrarCategorias] = useState(false);
+
   return (
     <header className="bg-[#050B18] border-b border-blue-600">
-
+      
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
 
         <div className="flex items-center gap-3">
@@ -30,51 +35,52 @@ export default function Navbar() {
 
         <nav className="flex gap-8 text-white">
 
-          <a href="#inicio" className="text-white font-medium transition-all duration-300
-          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
-          active:scale-95">
+          <a href="#inicio" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+            text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
+            hover:scale-105 active:scale-95">
             Inicio
           </a>
 
-          <a href="#productos" className="text-white font-medium transition-all duration-300
-          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
-          active:scale-95"
-          >
+          <a href="#productos" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+            text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
+            hover:scale-105 active:scale-95">
             Productos
           </a>
 
-          <div className="relative group">
-
-            <button className="text-white hover:text-blue-400 transition-all duration-300"
+          <div className="relative">
+            <button
+              onClick={() => setMostrarCategorias(!mostrarCategorias)}
+              className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+              text-white font-semibold hover:bg-blue-600 hover:border-blue-400 hover:scale-105
+              active:scale-95 transition-all duration-300"
             >
-              Categorías ▼
+              Categorías {mostrarCategorias ? "▲" : "▼"}
             </button>
 
-            <div
-              className="absolute hidden group-hover:block bg-[#091226] border border-blue-900
-              rounded-lg mt-2 min-w-[220px] shadow-xl z-50"
-            >
-
-              <a
-                href="#productos" className="block px-4 py-3 text-white hover:bg-blue-600"
+            {mostrarCategorias && (
+              <div
+                className="absolute top-full left-0 mt-2 min-w-[250px] bg-[#091226] border border-blue-700
+                rounded-xl shadow-xl z-50"
               >
-                🎧 Audífonos
-              </a>
-  </div>
+                <a
+                  href="#productos"
+                  className="block px-5 py-4 text-white hover:bg-blue-600 rounded-t-xl"
+                >
+                  🎧 Audífonos
+                </a>
+              </div>
+            )}
+          </div>
 
-</div>
-
-          <a href="#ofertas" className="text-white font-medium transition-all duration-300
-          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
-          active:scale-95"
-          >
+          <a href="#ofertas" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+            text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
+            hover:scale-105 active:scale-95">
             Ofertas
           </a>
 
-          <a href="#contacto" className="text-white font-medium transition-all duration-300
-          hover:text-blue-400 hover:scale-110 hover:drop-shadow-[0_0_8px_rgba(59,130,246,0.8)]
-          active:scale-95"
-          >
+          <a href="#contacto" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+            text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
+            hover:scale-105 active:scale-95">
             Contacto
           </a>
 
