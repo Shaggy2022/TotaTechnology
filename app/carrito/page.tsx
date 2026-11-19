@@ -2,9 +2,21 @@
 
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function CarritoPage() {
-  const {carrito, eliminarProducto,} = useCart();
+  const {carrito, eliminarProducto, vaciarCarrito} = useCart();
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+   return null;
+  }
 
   const total = carrito.reduce(
     (sum, item) => sum + item.precio,
@@ -15,6 +27,15 @@ export default function CarritoPage() {
     <main className="min-h-screen bg-black text-white">
 
       <div className="max-w-7xl mx-auto px-6 py-10">
+
+        <Link
+          href="/"
+          className="inline-flex items-center text-lg gap-2 bg-blue-600 hover:bg-blue-700
+          px-5 py-3 rounded-xl font-semibold shadow-lg transition-all duration-200
+          hover:scale-105 active:scale-95 mb-6"
+        >
+          🏠 Volver al Inicio
+        </Link>
 
         <h1 className="text-5xl font-bold text-blue-400 mb-10">
           🛒 Mi Carrito
@@ -39,16 +60,7 @@ export default function CarritoPage() {
               {carrito.map((producto, index) => (
                 <div
                   key={`${producto.id}-${index}`}
-                  className="
-                    bg-[#091226]
-                    border
-                    border-blue-900
-                    rounded-xl
-                    p-5
-                    flex
-                    items-center
-                    gap-5
-                  "
+                  className="bg-[#091226] border border-blue-900 rounded-xl p-5 flex items-center gap-5"
                 >
                   <div className="relative w-32 h-32 bg-gray-900 rounded-lg overflow-hidden">
 
@@ -93,15 +105,7 @@ export default function CarritoPage() {
             <div>
 
               <div
-                className="
-                  bg-[#091226]
-                  border
-                  border-blue-900
-                  rounded-xl
-                  p-6
-                  sticky
-                  top-6
-                "
+                className="bg-[#091226] border border-blue-900 rounded-xl p-6 sticky top-6"
               >
                 <h2 className="text-3xl font-bold mb-6">
                   Resumen
@@ -129,20 +133,17 @@ export default function CarritoPage() {
 
                 </div>
 
-                <button
-                  className="
-                    mt-8
-                    w-full
-                    bg-blue-600
-                    hover:bg-blue-700
-                    py-4
-                    rounded-xl
-                    font-bold
-                    text-lg
-                    transition-all
-                  "
+                <Link
+                href="/checkout" className="mt-8 w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-lg transition-all block text-center"
                 >
                   Finalizar Compra
+                </Link>
+
+                <button
+                  onClick={vaciarCarrito}
+                  className="mt-8 w-full bg-red-600 hover:bg-red-700 py-4 rounded-xl font-bold text-lg transition-all"
+                >
+                  🗑️ Vaciar Carrito
                 </button>
 
               </div>
