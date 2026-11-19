@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import ProductosDestacados from "@/components/ProductosDestacados";
-import { prisma } from "@/lib/prisma";
 import { obtenerProductos } from "@/lib/productos";
 
 export default async function Home() {
@@ -11,47 +10,56 @@ export default async function Home() {
     <main className="bg-black min-h-screen">
       <Navbar />
 
+      {/* Banner Principal */}
       <section id="inicio">
         <Image
           src="/images/hero-banner.jpg"
           alt="Banner Principal"
           width={1600}
           height={600}
-          className="w-full"
+          className="w-full h-auto object-cover"
           priority
         />
       </section>
 
-      <section id="productos">
+      {/* Productos */}
+      <section id="productos" className="pb-24">
         <ProductosDestacados productos={productos} />
       </section>
 
-      <section id="ofertas" className="bg-[#050b18] py-20">
-        <h2 className="text-5xl font-bold text-center text-blue-400">
-          🔥 Ofertas Especiales
-        </h2>
+      {/* Ofertas */}
+      <section
+        id="ofertas"
+        className="py-16 md:py-20"
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-400">
+            🔥 Ofertas Especiales
+          </h2>
 
-        <p className="text-center mt-6 text-gray-300">
-          Próximamente encontrarás promociones exclusivas.
-        </p>
-      </section>
-
-      <section id="contacto" className="bg-black py-20">
-        <h2 className="text-5xl text-center font-bold text-blue-400">
-          Contacto
-        </h2>
-
-        <div className="mt-10 text-center">
-
-          <p>📱 WhatsApp: 321 376 9387</p>
-
-          <p>📧 ventas@totatechnology.com</p>
-
-          <p>📍 Bogotá, Colombia</p>
-
+          <p className="text-center mt-4 text-gray-300">
+            Próximamente encontrarás promociones exclusivas.
+          </p>
         </div>
       </section>
 
+      {/* Contacto */}
+      <section
+        id="contacto"
+        className="py-16 md:py-20"
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-400">
+            Contacto
+          </h2>
+
+          <div className="mt-8 text-center space-y-3">
+            <p>📱 WhatsApp: 321 376 9387</p>
+            <p>📧 ventas@totatechnology.com</p>
+            <p>📍 Bogotá, Colombia</p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

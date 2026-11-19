@@ -10,7 +10,8 @@ export default function Navbar() {
   return (
     <header className="bg-[#050B18] border-b border-blue-600">
       
-      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
+      <div
+  className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between px-4 py-4 gap-4">
 
         <div className="flex items-center gap-3">
 
@@ -22,7 +23,7 @@ export default function Navbar() {
           />
 
           <div>
-            <h1 className="text-xl font-bold text-blue-400">
+            <h1 className="text-lg md:text-xl font-bold text-blue-400">
               TOTA TECHNOLOGY
             </h1>
 
@@ -33,15 +34,15 @@ export default function Navbar() {
 
         </div>
 
-        <nav className="flex gap-8 text-white">
+        <nav className="flex flex-wrap lg:flex-nowrap justify-center items-center gap-2 md:gap-4 lg:gap-6 text-white">
 
-          <a href="#inicio" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+          <a href="#inicio" className="px-3 py-2 text-sm md:text-base lg:text-lg lg:px-5 lg:py-3 rounded-xl bg-[#091226] border border-blue-800
             text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
             hover:scale-105 active:scale-95">
             Inicio
           </a>
 
-          <a href="#productos" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+          <a href="#productos" className="px-3 py-2 text-sm md:text-base lg:text-lg lg:px-5 lg:py-3 rounded-xl bg-[#091226] border border-blue-800
             text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
             hover:scale-105 active:scale-95">
             Productos
@@ -50,7 +51,7 @@ export default function Navbar() {
           <div className="relative">
             <button
               onClick={() => setMostrarCategorias(!mostrarCategorias)}
-              className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+              className="px-3 py-2 text-sm md:text-base lg:text-lg lg:px-5 lg:py-3 rounded-xl bg-[#091226] border border-blue-800
               text-white font-semibold hover:bg-blue-600 hover:border-blue-400 hover:scale-105
               active:scale-95 transition-all duration-300"
             >
@@ -59,7 +60,7 @@ export default function Navbar() {
 
             {mostrarCategorias && (
               <div
-                className="absolute top-full left-0 mt-2 min-w-[250px] bg-[#091226] border border-blue-700
+                className="absolute top-full left-0 mt-2 w-full md:min-w-[250px] bg-[#091226] border border-blue-700
                 rounded-xl shadow-xl z-50"
               >
                 <a
@@ -72,13 +73,13 @@ export default function Navbar() {
             )}
           </div>
 
-          <a href="#ofertas" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+          <a href="#ofertas" className="px-3 py-2 text-sm md:text-base lg:text-lg lg:px-5 lg:py-3 rounded-xl bg-[#091226] border border-blue-800
             text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
             hover:scale-105 active:scale-95">
             Ofertas
           </a>
 
-          <a href="#contacto" className="px-5 py-3 text-lg rounded-xl bg-[#091226] border border-blue-800
+          <a href="#contacto" className="px-3 py-2 text-sm md:text-base lg:text-lg lg:px-5 lg:py-3 rounded-xl bg-[#091226] border border-blue-800
             text-white font-semibold transition-all duration-300 hover:bg-blue-600 hover:border-blue-400
             hover:scale-105 active:scale-95">
             Contacto

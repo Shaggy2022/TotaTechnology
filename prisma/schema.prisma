@@ -8,60 +8,61 @@ datasource db {
 }
 
 model Usuario {
-  id         Int      @id @default(autoincrement())
-  nombre     String
-  apellido   String
-  email      String   @unique
-  password   String
-  telefono   String?
-  createdAt  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  apellido  String
+  email     String   @unique
+  password  String
+  telefono  String?
+  createdAt DateTime @default(now())
 
-  pedidos    Pedido[]
+  pedidos Pedido[]
 }
 
 model Categoria {
-  id         Int        @id @default(autoincrement())
-  nombre     String
+  id     Int    @id @default(autoincrement())
+  nombre String
 
-  productos  Producto[]
+  productos Producto[]
 }
 
 model Producto {
-  id           Int       @id @default(autoincrement())
-  nombre       String
-  descripcion  String
-  precio       Float
-  stock        Int
-  imagen       String
+  id          Int    @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  precio      Float
+  stock       Int
+  imagen      String
 
-  categoriaId  Int
-  categoria    Categoria @relation(fields: [categoriaId], references: [id])
+  categoriaId Int
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
 
-  detalles     DetallePedido[]
+  detalles DetallePedido[]
 }
 
 model Pedido {
-  id         Int      @id @default(autoincrement())
-  fecha      DateTime @default(now())
-  total      Float
-  estado     String
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int?
+  nombre      String
+  telefono    String
+  correo      String
+  total       Float
+  estado      String   @default("Pendiente")
+  comprobante String?
+  fecha       DateTime @default(now())
 
-  usuarioId  Int
-  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
+  usuario Usuario? @relation(fields: [usuarioId], references: [id])
 
-  detalles   DetallePedido[]
+  detalles DetallePedido[]
 }
 
 model DetallePedido {
-  id         Int      @id @default(autoincrement())
-
+  id         Int   @id @default(autoincrement())
   pedidoId   Int
   productoId Int
-
   cantidad   Int
   precio     Float
 
-  pedido     Pedido   @relation(fields: [pedidoId], references: [id])
-
-  producto   Producto @relation(fields: [productoId], references: [id])
+  pedido   Pedido   @relation(fields: [pedidoId], references: [id])
+  producto Producto @relation(fields: [productoId], references: [id])
 }

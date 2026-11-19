@@ -133,11 +133,11 @@ export default function CarritoPage() {
 
                 </div>
 
-                <button
-                  className="mt-8 w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-lg transition-all"
+                <Link
+                href="/checkout" className="mt-8 w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-lg transition-all block text-center"
                 >
                   Finalizar Compra
-                </button>
+                </Link>
 
                 <button
                   onClick={vaciarCarrito}
