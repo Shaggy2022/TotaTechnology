@@ -1,6 +1,57 @@
 "use client";
 
+import { useState } from "react";
+import toast from "react-hot-toast";
+
 export default function CheckoutPage() {
+
+const [nombre, setNombre] = useState("");
+const [correo, setCorreo] = useState("");
+const [telefono, setTelefono] = useState("");
+const [direccion, setDireccion] = useState("");
+
+const [archivo, setArchivo] = useState<File | null>(null);
+const [urlComprobante, setUrlComprobante] = useState("");
+const [subiendo, setSubiendo] = useState(false);
+
+const subirComprobante = async () => {
+  if (!archivo) {
+    toast.error("❌ Debes seleccionar un comprobante");
+    return null;
+  }
+
+  try {
+    setSubiendo(true);
+
+    const formData = new FormData();
+    formData.append("archivo", archivo);
+
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    setSubiendo(false);
+
+    if (!data.success) {
+      toast.error("❌ Error al subir el comprobante");
+      return null;
+    }
+
+    return data.url;
+  } catch (error) {
+    console.error(error);
+
+    setSubiendo(false);
+
+    toast.error("❌ No fue posible conectar con el servidor");
+
+    return null;
+  }
+};
+
   return (
     <main className="min-h-screen bg-black text-white p-10">
 
@@ -15,24 +66,32 @@ export default function CheckoutPage() {
           <input
             type="text"
             placeholder="Nombre completo"
-            className="p-3 rounded-lg bg-black border border-blue-900"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+  className="p-3 rounded-lg bg-black border border-blue-900"
           />
 
           <input
             type="email"
             placeholder="Correo electrónico"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
             className="p-3 rounded-lg bg-black border border-blue-900"
           />
 
           <input
             type="text"
             placeholder="Teléfono"
+            value={telefono}
+            onChange={(e) => setTelefono(e.target.value)}
             className="p-3 rounded-lg bg-black border border-blue-900"
           />
 
           <input
             type="text"
             placeholder="Dirección"
+            value={direccion}
+            onChange={(e) => setDireccion(e.target.value)}
             className="p-3 rounded-lg bg-black border border-blue-900"
           />
 
@@ -48,8 +107,19 @@ export default function CheckoutPage() {
             <input
               type="file"
               accept=".jpg,.jpeg,.png,.pdf"
+              onChange={(e) => {
+                if (e.target.files?.[0]) {
+                  setArchivo(e.target.files[0]);
+                }
+              }}
               className="w-full p-3 rounded-lg bg-black border border-blue-900"
             />
+
+            {archivo && (
+              <p className="text-green-400 mt-2">
+                ✅ Archivo seleccionado: {archivo.name}
+              </p>
+            )}
 
             <p className="text-gray-400 text-sm mt-2">
               Adjunta el comprobante de tu transferencia o pago.
@@ -61,13 +131,6 @@ export default function CheckoutPage() {
       </div>
 
         <div className="mt-8 bg-[#091226] border border-blue-900 rounded-xl p-8">
-
-              <div className="mt-8">
-                <button
-                  className="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-lg transition-all">
-                  Finalizar Compra
-                </button>
-              </div>
 
               <h2 className="text-3xl font-bold text-center text-blue-400 mb-5 mt-10">
                   Métodos de Pago
@@ -87,6 +150,38 @@ export default function CheckoutPage() {
                       🏦 Bancolombia: 123456789
                   </p>
 
+              </div>
+
+              <div className="mt-8">
+                <button
+                  onClick={async () => {
+                    if (
+                      !nombre.trim() ||
+                      !correo.trim() ||
+                      !telefono.trim() ||
+                      !direccion.trim()
+                    ) {
+                      toast.error("❌ Debes completar todos los campos del formulario");
+                      return;
+                    }
+
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/;
+ 
+                    if (!emailRegex.test(correo)) {
+                      toast.error("❌ Ingresa un correo electrónico válido");
+                      return;
+                    }
+                    const url = await subirComprobante();
+
+                    if (url) {
+                      toast.success("✅ Comprobante cargado correctamente");
+                    }
+                  }}
+                  disabled={subiendo}
+                  className="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-lg
+                  transition-all disabled:bg-gray-700">
+                  {subiendo ? "Subiendo comprobante..." : "Finalizar Compra"}
+                </button>
               </div>
 
         </div>
