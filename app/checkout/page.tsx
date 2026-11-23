@@ -2,8 +2,16 @@
 
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useCart } from "@/context/CartContext";
 
 export default function CheckoutPage() {
+
+const { carrito, vaciarCarrito } = useCart();
+
+const total = carrito.reduce(
+  (sum, item) => sum + item.precio,
+  0
+);
 
 const [nombre, setNombre] = useState("");
 const [correo, setCorreo] = useState("");
@@ -52,6 +60,47 @@ const subirComprobante = async () => {
   }
 };
 
+const crearPedido = async (
+  comprobanteUrl: string
+) => {
+
+  const productosAgrupados = Object.values(
+    carrito.reduce((acc: any, producto) => {
+
+      if (!acc[producto.id]) {
+        acc[producto.id] = {
+          id: producto.id,
+          precio: producto.precio,
+          cantidad: 1,
+        };
+      } else {
+        acc[producto.id].cantidad++;
+      }
+
+      return acc;
+
+    }, {})
+  );
+
+  const response = await fetch("/api/pedidos", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nombre,
+      correo,
+      telefono,
+      direccion,
+      total,
+      comprobante: comprobanteUrl,
+      productos: productosAgrupados,
+    }),
+  });
+
+  return await response.json();
+};
+
   return (
     <main className="min-h-screen bg-black text-white p-10">
 
@@ -68,7 +117,7 @@ const subirComprobante = async () => {
             placeholder="Nombre completo"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-  className="p-3 rounded-lg bg-black border border-blue-900"
+            className="p-3 rounded-lg bg-black border border-blue-900"
           />
 
           <input
@@ -176,6 +225,50 @@ const subirComprobante = async () => {
                     if (url) {
                       toast.success("✅ Comprobante cargado correctamente");
                     }
+
+                    if (!url) {
+                      return;
+                    }
+
+                    const pedido = await crearPedido(url);
+
+                    if (!pedido.success) {
+                      toast.error("❌ Error al registrar el pedido");
+                      return;
+                    }
+
+                    vaciarCarrito();
+
+                    toast.success(
+                      "✅ Compra realizada con éxito. Tu pedido ya está siendo preparado."
+                    );
+
+                    const mensaje = `
+                    *NUEVO PEDIDO TOTA TECHNOLOGY*
+
+                    *Pedido:* #${pedido.pedidoId
+                    .toString()
+                    .padStart(6, "0")}
+
+                    *Cliente:* ${nombre}
+                    *Correo:* ${correo}
+                    *Teléfono:* ${telefono}
+                    *Dirección:* ${direccion}
+
+                    *Total:* $${total.toLocaleString("es-CO")}
+
+                    El cliente adjuntó el comprobante de pago correctamente.`;
+
+                    window.open(
+                      `https://wa.me/573213769387?text=${encodeURIComponent(mensaje)}`,
+                      "_blank"
+                    );
+
+                    setNombre("");
+                    setCorreo("");
+                    setTelefono("");
+                    setDireccion("");
+                    setArchivo(null);
                   }}
                   disabled={subiendo}
                   className="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-bold text-lg

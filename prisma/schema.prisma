@@ -46,6 +46,7 @@ model Pedido {
   nombre      String
   telefono    String
   correo      String
+  direccion   String
   total       Float
   estado      String   @default("Pendiente")
   comprobante String?
