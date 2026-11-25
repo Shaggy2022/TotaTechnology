@@ -1,9 +1,13 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function Footer() {
+  const [year, setYear] = useState("");
 
-  return (
-    <footer className="bg-gray-900 text-white p-4">
-      © 2026 Tota Technology
-    </footer>
-  );
+  useEffect(() => {
+    setYear(new Date().getFullYear().toString());
+  }, []);
 
+  return <>{year}</>;
 }

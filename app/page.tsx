@@ -2,6 +2,8 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import ProductosDestacados from "@/components/ProductosDestacados";
 import { obtenerProductos } from "@/lib/productos";
+import {FaFacebook,FaInstagram,FaWhatsapp,} from "react-icons/fa";
+import Footer from "@/components/Footer";
 
 export default async function Home() {
   const productos = await obtenerProductos();
@@ -53,10 +55,40 @@ export default async function Home() {
             Contacto
           </h2>
 
-          <div className="mt-8 text-center space-y-3">
-            <p>📱 WhatsApp: 321 376 9387</p>
-            <p>📧 ventas@totatechnology.com</p>
-            <p>📍 Bogotá, Colombia</p>
+          <div className="flex justify-center gap-8 mt-10 text-5xl">
+            <a
+              href="https://www.facebook.com/profile.php?id=100067072517072"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:scale-110 transition-transform"
+            >
+              <FaFacebook />
+            </a>
+
+            <a
+              href="https://www.instagram.com/totatechnology"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-500 hover:scale-110 transition-transform"
+            >
+              <FaInstagram />
+            </a>
+
+            <a
+              href="https://wa.me/573124285234"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-500 hover:scale-110 transition-transform"
+            >
+              <FaWhatsapp />
+            </a>
+
+          </div>
+          <div className="text-center mt-6 text-gray-400">
+            Síguenos en nuestras redes sociales oficiales
+          </div>
+          <div className="text-center mt-8 text-sm text-gray-500 border-t border-blue-900 pt-4">
+            © <Footer /> Tota Technology. Todos los derechos reservados.
           </div>
         </div>
       </section>

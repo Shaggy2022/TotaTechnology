@@ -3,8 +3,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
+
+const router = useRouter();
 
 const { carrito, vaciarCarrito } = useCart();
 
@@ -188,15 +191,15 @@ const crearPedido = async (
               <div className="space-y-4 text-center">
 
                   <p>
-                      📱 Nequi: 3001234567
+                      📱 Nequi: pendiente
                   </p>
 
                   <p>
-                      💳 Daviplata: 3001234567
+                      💳 Daviplata: pendiente
                   </p>
 
                   <p>
-                      🏦 Bancolombia: 123456789
+                      🏦 Bancolombia: pendiente
                   </p>
 
               </div>
@@ -243,26 +246,9 @@ const crearPedido = async (
                       "✅ Compra realizada con éxito. Tu pedido ya está siendo preparado."
                     );
 
-                    const mensaje = `
-                    *NUEVO PEDIDO TOTA TECHNOLOGY*
-
-                    *Pedido:* #${pedido.pedidoId
-                    .toString()
-                    .padStart(6, "0")}
-
-                    *Cliente:* ${nombre}
-                    *Correo:* ${correo}
-                    *Teléfono:* ${telefono}
-                    *Dirección:* ${direccion}
-
-                    *Total:* $${total.toLocaleString("es-CO")}
-
-                    El cliente adjuntó el comprobante de pago correctamente.`;
-
-                    window.open(
-                      `https://wa.me/573213769387?text=${encodeURIComponent(mensaje)}`,
-                      "_blank"
-                    );
+                    setTimeout(() => {
+                      router.push("/");
+                    }, 3000);
 
                     setNombre("");
                     setCorreo("");
