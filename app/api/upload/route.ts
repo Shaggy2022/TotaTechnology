@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import path from "path";
+import cloudinary from "@/lib/cloudinary";
 
 export async function POST(req: Request) {
   try {
@@ -10,35 +9,52 @@ export async function POST(req: Request) {
 
     if (!archivo) {
       return NextResponse.json(
-        { error: "No se recibió ningún archivo" },
-        { status: 400 }
+        {
+          success: false,
+          error: "No se recibió archivo",
+        },
+        {
+          status: 400,
+        }
       );
     }
 
     const bytes = await archivo.arrayBuffer();
+
     const buffer = Buffer.from(bytes);
 
-    const nombreArchivo = `${Date.now()}-${archivo.name}`;
+    const base64 = `data:${archivo.type};base64,${buffer.toString(
+      "base64"
+    )}`;
 
-    const ruta = path.join(
-      process.cwd(),
-      "public",
-      "comprobantes",
-      nombreArchivo
+    const resultado = await cloudinary.uploader.upload(
+      base64,
+      {
+        folder: "tota-technology/comprobantes",
+        resource_type: "auto",
+      }
     );
 
-    await writeFile(ruta, buffer);
+    console.log(resultado);
 
     return NextResponse.json({
       success: true,
-      url: `/comprobantes/${nombreArchivo}`,
+      url: resultado.secure_url,
+      resourceType: resultado.resource_type,
     });
+
   } catch (error) {
+
     console.error(error);
 
     return NextResponse.json(
-      { error: "Error al subir archivo" },
-      { status: 500 }
+      {
+        success: false,
+        error: "Error al subir archivo",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
