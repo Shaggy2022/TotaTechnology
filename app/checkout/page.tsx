@@ -31,6 +31,19 @@ const subirComprobante = async () => {
     return null;
   }
 
+  const tiposPermitidos = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+  ];
+
+  if (!tiposPermitidos.includes(archivo.type)) {
+    toast.error(
+      "❌ Solo se permiten imágenes JPG o PNG como comprobante."
+    );
+    return null;
+  }
+
   try {
     setSubiendo(true);
 
@@ -158,7 +171,7 @@ const crearPedido = async (
 
             <input
               type="file"
-              accept=".jpg,.jpeg,.png,.pdf"
+              accept=".jpg,.jpeg,.png"
               onChange={(e) => {
                 if (e.target.files?.[0]) {
                   setArchivo(e.target.files[0]);
