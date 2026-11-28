@@ -63,12 +63,49 @@ export default function Navbar() {
                 className="absolute top-full left-0 mt-2 w-full md:min-w-[250px] bg-[#091226] border border-blue-700
                 rounded-xl shadow-xl z-50"
               >
-                <a
-                  href="#productos"
-                  className="block px-5 py-4 text-white hover:bg-blue-600 rounded-t-xl"
-                >
-                  🎧 Audífonos
-                </a>
+                <div className="relative group">
+                  <a
+                    href="#productos"
+                    className="block px-5 py-4 text-white hover:bg-blue-600 rounded-t-xl"
+                  >
+                    🎧 Audífonos ▸
+                  </a>
+
+                  <div
+                    className="hidden group-hover:block absolute left-full top-0 min-w-[220px]
+                    bg-[#091226] border border-blue-700 rounded-xl"
+                  >
+                    <a
+                      href="#productos"
+                      className="block px-5 py-4 text-white hover:bg-blue-600"
+                    >
+                      🎧 Audífonos Disney
+                    </a>
+
+                    <a
+                      href="#productos"
+                      className="block px-5 py-4 text-white hover:bg-blue-600"
+                    >
+                      🎧 Audífonos de cuello
+                    </a>
+
+                    <a
+                      href="#productos"
+                      className="block px-5 py-4 text-white hover:bg-blue-600"
+                    >
+                      🎧 Audífonos Tipo Deadema
+                    </a>
+                  </div>
+                </div>
+
+                <div className="relative group">
+                  <a
+                    href="#productos"
+                    className="block px-5 py-4 text-white hover:bg-blue-600 rounded-t-xl"
+                  >
+                    🔋 Power Bank
+                  </a>
+                </div>
               </div>
             )}
           </div>

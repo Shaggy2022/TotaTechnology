@@ -18,7 +18,7 @@ export default function ProductosDestacados({
   return (
     <section className="bg-black py-16">
       <h2 className="text-4xl font-bold text-center text-blue-400 mb-10">
-        🎧 Audífonos Destacados
+        📱 Productos Destacados
       </h2>
 
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
